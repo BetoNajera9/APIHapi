@@ -1,0 +1,31 @@
+{
+  "name": "apihapi",
+  "version": "1.0.0",
+  "description": "This is a project to learn hapi",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "lint": "standard",
+    "lint-fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betonajera9/APIHapi.git"
+  },
+  "author": "BetoNajera",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/betonajera9/APIHapi/issues"
+  },
+  "homepage": "https://github.com/betonajera9/APIHapi#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "standard": "^14.3.3"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^19.1.1",
+    "@hapi/inert": "^6.0.1",
+    "@hapi/vision": "^6.0.0",
+    "handlebars": "^4.7.6"
+  }
+}
