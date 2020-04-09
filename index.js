@@ -5,6 +5,7 @@ const Inert = require('@hapi/inert')
 const Vision = require('@hapi/vision')
 const Handlebars = require('handlebars')
 const Path = require('path')
+const Routes = require('./routes')
 
 // Configurar el servidor de nuestra aplicación. En un contenedor (Docker) si marca error colocar 0.0.0.0 (todos)
 const server = Hapi.server({
@@ -34,28 +35,7 @@ async function init () {
       layoutPath: 'views' // --- ubicación de los layouts
     })
 
-    // Definición de rutas (indicar el método HTTP, URL y controlador de ruta)
-    server.route({
-      method: 'GET',
-      path: '/',
-      handler: (req, h) => {
-        // El objeto h es un conjunto de utilidades para la respuesta.
-        return h.view('index', {
-          title: 'home'
-        })
-      }
-    })
-
-    server.route({
-      method: 'GET',
-      path: '/{param*}',
-      handler: {
-        directory: {
-          path: '.',
-          index: ['index.html']
-        }
-      }
-    })
+    server.route(Routes)
 
     await server.start()
   } catch (e) {
