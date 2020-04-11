@@ -8,6 +8,7 @@ const serviceAccount = require('../config/firebase.json')
 
 // Importar modulos (CLASES) correspondientes a los modelos de la base de datos
 const Users = require('./users')
+const Questions = require('./questions')
 
 Firebase.initializeApp({
   credential: Firebase.credential.cert(serviceAccount),
@@ -20,5 +21,6 @@ const db = Firebase.database()
 // Recordar que los modelos esperan como parámetro una referencia hacia la base de datos.
 // Exportamos las instancias de los modelos listas para ser invocadas en los controladores correspondientes
 module.exports = {
-  users: new Users(db)
+  users: new Users(db),
+  questions: new Questions(db)
 }

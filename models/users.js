@@ -30,6 +30,25 @@ class Users {
     return newUser.key
   }
 
+  async validate (data) {
+    // Ordenar la colección por email, consultar el usuario por su email (no me interesa escuchar cambios en la data, por ello once)
+    const userQuery = await this.collection.orderByChild('email').equalTo(data.email).once('value')
+
+    // Obtengo el objeto con los resultados de mi consulta {objId: {}, objId: {}, objId: {}}
+    const userFound = userQuery.val()
+    if (userFound) {
+      // Obtengo un arreglo con los ids de los documentos que forman parte de los resultados de mi busqueda. Me interesa quedarme con el elemento (ObjectId) del primer documento, mas no con el arreglo
+      const userId = Object.keys(userFound)[0]
+      // comparar si las contraseñas son correctas {documentoResultado.objectId.password}
+      const passwdRight = await Bcrypt.compare(data.password, userFound[userId].password)
+      const result = (passwdRight) ? userFound[userId] : false
+
+      return result
+    }
+
+    return false
+  }
+
   // Método estático asincrono para la encriptacion de contraseñas
   static async encrypt (passwd) {
     const saltRounds = 10
